@@ -81,7 +81,6 @@ The Exams-Viewer platform primarily focuses on **ServiceNow certification exams*
 - **🏢 ServiceNow CIS Certifications**: Implementation Specialist exams
 - **🎓 ServiceNow CSA**: Certified System Administrator
 - **🔧 ServiceNow CAD**: Certified Application Developer
-- **📈 ServiceNow CTA**: Certified Technical Architect preparation
 - **🔍 Custom Practice Exams**: Community-contributed exam sets
 
 > The platform is specialized for ServiceNow certifications with potential for expansion based on community requests.
