@@ -1,0 +1,110 @@
+name: Welcome New Contributors
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    
+    steps:
+      - name: Welcome new issue creator
+        if: github.event_name == 'issues'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Check if this is the user's first issue
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              creator: context.payload.issue.user.login,
+              state: 'all'
+            });
+
+            if (issues.length === 1) {
+              const welcomeMessage = `👋 Welcome to the Exams-Viewer Project community, @${context.payload.issue.user.login}!
+
+            Thank you for opening your first issue! We're excited to have you contribute to our project.
+
+            ## What happens next?
+
+            🔍 **Review**: Our maintainers will review your issue and may ask for additional information
+            🏷️ **Labeling**: We'll add appropriate labels to help categorize your issue
+            📋 **Triage**: Your issue will be prioritized and added to our project board if needed
+
+            ## Community Guidelines
+
+            Please make sure to:
+            - 📖 Read our [Contributing Guidelines](./CONTRIBUTING.md)
+            - 🤝 Follow our [Code of Conduct](./CODE_OF_CONDUCT.md)
+            - 🔍 Check if similar issues already exist before creating new ones
+
+            ## Need Help?
+
+            - 💬 Join our [GitHub Discussions](../../discussions) for community support
+            - 📋 Browse our [issue templates](../../issues/new/choose) for future contributions
+            - 📚 Check our [documentation](./.github/TEMPLATES.md) for detailed guides
+
+            Thanks again for contributing to Exams-Viewer! 🚀`;
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.issue.number,
+                body: welcomeMessage
+              });
+            }
+
+      - name: Welcome new pull request creator
+        if: github.event_name == 'pull_request_target'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Check if this is the user's first pull request
+            const { data: pullRequests } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              creator: context.payload.pull_request.user.login,
+              state: 'all'
+            });
+
+            if (pullRequests.length === 1) {
+              const welcomeMessage = `🎉 Welcome to the Exams-Viewer Project, @${context.payload.pull_request.user.login}!
+
+            Thank you for opening your first pull request! We really appreciate your contribution.
+
+            ## What's Next?
+
+            ✅ **Review Process**: Our maintainers will review your changes
+            🧪 **Testing**: We'll test your changes to ensure they work correctly
+            💬 **Feedback**: We may provide feedback or request changes
+            🚀 **Merge**: Once approved, your changes will be merged!
+
+            ## First-Time Contributor Tips
+
+            - 📋 Make sure you've filled out the PR template completely
+            - ✅ Check that your changes follow our contribution guidelines
+            - 🔄 Be patient - review times may vary based on complexity
+            - 💬 Feel free to ask questions if anything is unclear
+
+            ## Community Resources
+
+            - 🤝 [Code of Conduct](./CODE_OF_CONDUCT.md)
+            - 📖 [Contributing Guidelines](./CONTRIBUTING.md)
+            - 💬 [GitHub Discussions](../../discussions)
+
+            Thank you for helping make Exams-Viewer better! 🌟`;
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                body: welcomeMessage
+              });
+            }

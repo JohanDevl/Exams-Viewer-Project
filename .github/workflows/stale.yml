@@ -1,0 +1,143 @@
+name: Mark Stale Issues and PRs
+
+on:
+  schedule:
+    # Run daily at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Mark stale issues and PRs
+        uses: actions/stale@v9
+        with:
+          # Repository token with appropriate permissions
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          
+          # Days before marking as stale
+          days-before-stale: 60
+          days-before-close: 14
+          
+          # Labels
+          stale-issue-label: 'status/stale'
+          stale-pr-label: 'status/stale'
+          
+          # Messages
+          stale-issue-message: |
+            👋 Hi there! This issue has been automatically marked as stale because it hasn't had any activity for 60 days.
+            
+            ## What happens next?
+            
+            - 📅 **14 days**: This issue will be automatically closed if no further activity occurs
+            - 💬 **Keep alive**: Comment on this issue to remove the stale label and keep it active
+            - 🏷️ **Remove label**: We can also remove the stale label if this is still relevant
+            
+            ## Is this issue still relevant?
+            
+            If this issue is still relevant to you:
+            - ✅ Leave a comment explaining why this should remain open
+            - 🔄 Provide any updates or additional information
+            - 📝 Update the issue description if needed
+            
+            ## For maintainers
+            
+            Please review this issue and:
+            - Remove the stale label if it should remain active
+            - Close if no longer relevant
+            - Add context if needed
+            
+            Thank you for your contribution to Exams-Viewer! 🚀
+            
+          stale-pr-message: |
+            👋 Hi @${{ github.event.pull_request.user.login }}! This pull request has been automatically marked as stale because it hasn't had any activity for 60 days.
+            
+            ## What happens next?
+            
+            - 📅 **14 days**: This PR will be automatically closed if no further activity occurs
+            - 💬 **Keep alive**: Comment on this PR to remove the stale label and keep it active
+            - 🔄 **Update**: Push new commits or update the PR description
+            
+            ## Is this PR still relevant?
+            
+            If you're still working on this PR:
+            - ✅ Leave a comment with an update on your progress
+            - 🔄 Push any new changes or fixes
+            - 📝 Update the PR description if the scope has changed
+            
+            ## Need help?
+            
+            - 💬 Ask questions in the comments
+            - 📖 Check our [Contributing Guidelines](./CONTRIBUTING.md)
+            - 💬 Join our [GitHub Discussions](../../discussions) for help
+            
+            Thank you for your contribution to Exams-Viewer! 🌟
+          
+          close-issue-message: |
+            🤖 This issue has been automatically closed due to inactivity.
+            
+            ## Why was this closed?
+            
+            This issue was marked as stale 14 days ago and has not received any further activity, so it has been automatically closed to help keep our issue tracker organized.
+            
+            ## Want to reopen this issue?
+            
+            If this issue is still relevant:
+            - 🔄 Feel free to reopen this issue
+            - 💬 Leave a comment explaining the current status
+            - 📝 Update the issue with any new information
+            
+            ## Create a new issue
+            
+            If the original problem persists but this issue is outdated:
+            - 📝 [Create a new issue](../../issues/new/choose) with current information
+            - 🔗 Reference this closed issue for context
+            - 📋 Use our issue templates for better organization
+            
+            Thank you for contributing to Exams-Viewer! 🙏
+            
+          close-pr-message: |
+            🤖 This pull request has been automatically closed due to inactivity.
+            
+            ## Why was this closed?
+            
+            This PR was marked as stale 14 days ago and has not received any further activity, so it has been automatically closed to help keep our PR queue manageable.
+            
+            ## Want to continue this work?
+            
+            If you'd like to continue this contribution:
+            - 🔄 Reopen this PR with updated changes
+            - 💬 Leave a comment explaining your plans
+            - 🔄 Rebase your branch against the latest main branch
+            
+            ## Starting fresh
+            
+            If you prefer to start over:
+            - 📝 Create a new PR with your latest changes
+            - 🔗 Reference this closed PR for context
+            - 📋 Make sure to fill out the PR template
+            
+            Thank you for your contribution to Exams-Viewer! 🌟
+          
+          # Operations per run (to avoid hitting API limits)
+          operations-per-run: 30
+          
+          # Exempt labels (issues/PRs with these labels won't be marked as stale)
+          exempt-issue-labels: 'priority/high,status/blocked,status/in-progress,good first issue,help wanted,pinned'
+          exempt-pr-labels: 'priority/high,status/blocked,status/in-progress,work-in-progress,do-not-close'
+          
+          # Don't mark drafts as stale
+          exempt-draft-pr: true
+          
+          # Only process issues/PRs, not both in one run to avoid rate limits
+          operations-per-run: 60
+          
+          # Additional options
+          remove-stale-when-updated: true
+          debug-only: false
+          ascending: true

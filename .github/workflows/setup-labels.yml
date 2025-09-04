@@ -1,0 +1,144 @@
+name: Setup Repository Labels
+
+on:
+  workflow_dispatch: # Manual trigger only
+  push:
+    paths:
+      - '.github/workflows/setup-labels.yml'
+    branches:
+      - main
+
+jobs:
+  setup-labels:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    
+    steps:
+      - name: Setup repository labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Define all labels for the repository
+            const labels = [
+              // Type labels
+              { name: 'type/bug', color: 'FF6B6B', description: 'Something isn\'t working correctly' },
+              { name: 'type/enhancement', color: '4ECDC4', description: 'New feature or request' },
+              { name: 'type/new-exam', color: '45B7D1', description: 'Request for a new certification exam' },
+              { name: 'type/ui-ux', color: 'F7B731', description: 'User interface or experience improvements' },
+              { name: 'type/documentation', color: '5F27CD', description: 'Improvements or additions to documentation' },
+              { name: 'type/bug-fix', color: 'FF6B6B', description: 'Pull request that fixes a bug' },
+              { name: 'type/refactor', color: '00D2D3', description: 'Code refactoring without functional changes' },
+              { name: 'type/test', color: 'FFA502', description: 'Adding or updating tests' },
+              { name: 'type/maintenance', color: '747D8C', description: 'Repository maintenance and housekeeping' },
+              { name: 'type/ci-cd', color: '2F3542', description: 'Continuous integration and deployment' },
+
+              // Priority labels
+              { name: 'priority/high', color: 'FF4757', description: 'High priority issue requiring immediate attention' },
+              { name: 'priority/medium', color: 'FFA726', description: 'Medium priority issue' },
+              { name: 'priority/low', color: '66BB6A', description: 'Low priority issue' },
+
+              // Status labels
+              { name: 'status/needs-triage', color: 'FFEB3B', description: 'Issue needs to be triaged and categorized' },
+              { name: 'status/needs-info', color: 'FF9800', description: 'More information needed from issue creator' },
+              { name: 'status/confirmed', color: '4CAF50', description: 'Issue has been confirmed and is ready for work' },
+              { name: 'status/in-progress', color: '2196F3', description: 'Someone is actively working on this issue' },
+              { name: 'status/blocked', color: 'E91E63', description: 'Issue is blocked by another issue or external dependency' },
+              { name: 'status/needs-review', color: '9C27B0', description: 'Pull request needs review' },
+              { name: 'status/draft', color: '607D8B', description: 'Pull request is still in draft mode' },
+              { name: 'status/stale', color: '795548', description: 'Issue or PR has been inactive for a long time' },
+
+              // Provider labels
+              { name: 'provider/servicenow', color: '62B47A', description: 'ServiceNow certification exams' },
+              { name: 'provider/microsoft', color: '00A1F1', description: 'Microsoft certification exams' },
+              { name: 'provider/aws', color: 'FF9900', description: 'Amazon Web Services certification exams' },
+              { name: 'provider/google', color: '4285F4', description: 'Google Cloud Platform certification exams' },
+              { name: 'provider/oracle', color: 'F80000', description: 'Oracle certification exams' },
+              { name: 'provider/cisco', color: '1BA0D7', description: 'Cisco certification exams' },
+              { name: 'provider/comptia', color: 'C8102E', description: 'CompTIA certification exams' },
+
+              // Platform labels  
+              { name: 'platform/mobile', color: 'E4405F', description: 'Mobile device related issues' },
+              { name: 'platform/browser', color: '1877F2', description: 'Browser-specific issues' },
+              { name: 'platform/desktop', color: '25D366', description: 'Desktop application issues' },
+
+              // Size labels for PRs
+              { name: 'size/XS', color: '3CBF00', description: 'Extra small PR (1-9 lines)' },
+              { name: 'size/S', color: '5D9801', description: 'Small PR (10-29 lines)' },
+              { name: 'size/M', color: '7F7203', description: 'Medium PR (30-99 lines)' },
+              { name: 'size/L', color: 'A14C05', description: 'Large PR (100-499 lines)' },
+              { name: 'size/XL', color: 'C32607', description: 'Extra large PR (500+ lines)' },
+
+              // Community labels
+              { name: 'good first issue', color: '7057FF', description: 'Good for newcomers to the project' },
+              { name: 'help wanted', color: '008672', description: 'Community help is needed on this issue' },
+              { name: 'question', color: 'D876E3', description: 'Further information is requested' },
+              { name: 'duplicate', color: 'CFD3D7', description: 'This issue or pull request already exists' },
+              { name: 'invalid', color: 'E4E669', description: 'This doesn\'t seem right' },
+              { name: 'wontfix', color: 'FFFFFF', description: 'This will not be worked on' },
+
+              // Special labels
+              { name: 'security', color: 'FF0000', description: 'Security-related issue or vulnerability' },
+              { name: 'breaking-change', color: 'B60205', description: 'Changes that break backward compatibility' },
+              { name: 'do-not-merge', color: 'FF0000', description: 'Pull request should not be merged yet' },
+              { name: 'dependencies', color: '0366D6', description: 'Pull requests that update a dependency file' },
+              { name: 'pinned', color: 'F9D71C', description: 'Issue is pinned and should not be marked as stale' }
+            ];
+
+            // Get existing labels
+            const { data: existingLabels } = await github.rest.issues.listLabelsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+
+            const existingLabelNames = existingLabels.map(label => label.name);
+
+            // Create or update labels
+            for (const label of labels) {
+              try {
+                if (existingLabelNames.includes(label.name)) {
+                  // Update existing label
+                  await github.rest.issues.updateLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    name: label.name,
+                    color: label.color,
+                    description: label.description
+                  });
+                  console.log(`Updated label: ${label.name}`);
+                } else {
+                  // Create new label
+                  await github.rest.issues.createLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    name: label.name,
+                    color: label.color,
+                    description: label.description
+                  });
+                  console.log(`Created label: ${label.name}`);
+                }
+              } catch (error) {
+                console.error(`Error processing label ${label.name}:`, error.message);
+              }
+            }
+
+            // Clean up old/unwanted default labels
+            const labelsToRemove = ['bug', 'enhancement', 'documentation'];
+            
+            for (const labelName of labelsToRemove) {
+              if (existingLabelNames.includes(labelName)) {
+                try {
+                  await github.rest.issues.deleteLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    name: labelName
+                  });
+                  console.log(`Removed old label: ${labelName}`);
+                } catch (error) {
+                  console.error(`Error removing label ${labelName}:`, error.message);
+                }
+              }
+            }
+
+            console.log('Label setup complete!')

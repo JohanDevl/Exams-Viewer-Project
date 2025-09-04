@@ -1,0 +1,206 @@
+name: Auto Label Issues and PRs
+
+on:
+  issues:
+    types: [opened, edited]
+  pull_request_target:
+    types: [opened, edited, synchronize]
+
+jobs:
+  label-issues:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    
+    steps:
+      - name: Auto-label issues based on template
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const title = issue.title.toLowerCase();
+            const body = issue.body || '';
+            const labels = [];
+
+            // Detect template based on title prefixes
+            if (title.includes('[bug]') || title.includes('bug:')) {
+              labels.push('type/bug');
+            } else if (title.includes('[feature]') || title.includes('feature:')) {
+              labels.push('type/enhancement');
+            } else if (title.includes('[new exam]') || title.includes('new exam:')) {
+              labels.push('type/new-exam', 'type/enhancement');
+            } else if (title.includes('[ui]') || title.includes('ui:')) {
+              labels.push('type/ui-ux', 'type/enhancement');
+            }
+
+            // Detect template based on body content
+            if (body.includes('## Bug Description') || body.includes('## Steps to Reproduce')) {
+              labels.push('type/bug');
+            }
+            
+            if (body.includes('## Feature Description') || body.includes('## Acceptance Criteria')) {
+              labels.push('type/enhancement');
+            }
+            
+            if (body.includes('## Exam Information') || body.includes('Exam Code:')) {
+              labels.push('type/new-exam', 'type/enhancement');
+            }
+            
+            if (body.includes('## UI/UX Problem') || body.includes('## Proposed Design')) {
+              labels.push('type/ui-ux', 'type/enhancement');
+            }
+
+            // Detect certification providers
+            const bodyLower = body.toLowerCase();
+            if (bodyLower.includes('servicenow') || bodyLower.includes('cis-') || bodyLower.includes('csa-') || bodyLower.includes('cad-')) {
+              labels.push('provider/servicenow');
+            }
+            
+            if (bodyLower.includes('microsoft') || bodyLower.includes('azure') || bodyLower.includes('ms-') || bodyLower.includes('az-')) {
+              labels.push('provider/microsoft');
+            }
+            
+            if (bodyLower.includes('amazon') || bodyLower.includes('aws') || bodyLower.includes('clf-') || bodyLower.includes('saa-')) {
+              labels.push('provider/aws');
+            }
+            
+            if (bodyLower.includes('google') || bodyLower.includes('gcp') || bodyLower.includes('cloud') && bodyLower.includes('professional')) {
+              labels.push('provider/google');
+            }
+
+            // Detect priority based on keywords
+            const highPriorityKeywords = ['critical', 'urgent', 'blocking', 'security', 'data loss', 'cannot access'];
+            const lowPriorityKeywords = ['minor', 'cosmetic', 'enhancement', 'nice to have', 'future'];
+            
+            if (highPriorityKeywords.some(keyword => bodyLower.includes(keyword) || title.includes(keyword))) {
+              labels.push('priority/high');
+            } else if (lowPriorityKeywords.some(keyword => bodyLower.includes(keyword) || title.includes(keyword))) {
+              labels.push('priority/low');
+            }
+
+            // Detect if it's a good first issue
+            if (bodyLower.includes('beginner') || bodyLower.includes('first time') || bodyLower.includes('easy fix') || 
+                title.includes('typo') || title.includes('documentation') || bodyLower.includes('readme')) {
+              labels.push('good first issue');
+            }
+
+            // Detect help wanted
+            if (bodyLower.includes('help needed') || bodyLower.includes('help wanted') || bodyLower.includes('assistance')) {
+              labels.push('help wanted');
+            }
+
+            // Detect mobile/browser specific issues
+            if (bodyLower.includes('mobile') || bodyLower.includes('responsive') || bodyLower.includes('phone') || bodyLower.includes('tablet')) {
+              labels.push('platform/mobile');
+            }
+            
+            if (bodyLower.includes('chrome') || bodyLower.includes('firefox') || bodyLower.includes('safari') || bodyLower.includes('edge')) {
+              labels.push('platform/browser');
+            }
+
+            // Add status label for new issues
+            if (!labels.some(label => label.startsWith('status/'))) {
+              labels.push('status/needs-triage');
+            }
+
+            // Apply labels if any were detected
+            if (labels.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: labels
+              });
+              
+              console.log(`Added labels: ${labels.join(', ')}`);
+            }
+
+  label-prs:
+    if: github.event_name == 'pull_request_target'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    
+    steps:
+      - name: Auto-label pull requests
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const title = pr.title.toLowerCase();
+            const body = pr.body || '';
+            const labels = [];
+
+            // Detect PR type based on title
+            if (title.includes('fix') || title.includes('bug')) {
+              labels.push('type/bug-fix');
+            } else if (title.includes('feat') || title.includes('add') || title.includes('new')) {
+              labels.push('type/enhancement');
+            } else if (title.includes('docs') || title.includes('documentation')) {
+              labels.push('type/documentation');
+            } else if (title.includes('refactor') || title.includes('improve')) {
+              labels.push('type/refactor');
+            } else if (title.includes('test') || title.includes('spec')) {
+              labels.push('type/test');
+            }
+
+            // Detect based on changed files
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number
+            });
+
+            const changedFiles = files.map(file => file.filename);
+            
+            // Documentation changes
+            if (changedFiles.some(file => file.includes('README') || file.includes('.md'))) {
+              labels.push('type/documentation');
+            }
+            
+            // Template changes
+            if (changedFiles.some(file => file.includes('.github/'))) {
+              labels.push('type/maintenance');
+            }
+            
+            // Workflow changes
+            if (changedFiles.some(file => file.includes('workflows/'))) {
+              labels.push('type/ci-cd');
+            }
+
+            // Size labels based on changes
+            const totalChanges = files.reduce((sum, file) => sum + file.additions + file.deletions, 0);
+            
+            if (totalChanges < 10) {
+              labels.push('size/XS');
+            } else if (totalChanges < 30) {
+              labels.push('size/S');
+            } else if (totalChanges < 100) {
+              labels.push('size/M');
+            } else if (totalChanges < 500) {
+              labels.push('size/L');
+            } else {
+              labels.push('size/XL');
+            }
+
+            // Draft PR handling
+            if (pr.draft) {
+              labels.push('status/draft', 'do-not-merge');
+            } else {
+              labels.push('status/needs-review');
+            }
+
+            // Apply labels
+            if (labels.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels: labels
+              });
+              
+              console.log(`Added labels: ${labels.join(', ')}`);
+            }
