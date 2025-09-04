@@ -11,7 +11,7 @@
 
 ## 📖 Overview
 
-This is the **official community repository** for the **Exams-Viewer Project** - a comprehensive web platform designed for viewing, managing, and studying certification exams from various providers including ServiceNow, Microsoft, AWS, and many others.
+This is the **official community repository** for the **Exams-Viewer Project** - a modern ServiceNow certification exam preparation platform built with Next.js 15, designed for practicing certification exam questions with advanced features, real-time statistics, and intelligent study tools.
 
 This repository serves as the central hub for:
 - 🐛 **Bug Reports** and issue tracking
@@ -22,18 +22,25 @@ This repository serves as the central hub for:
 
 ## 🎯 About Exams-Viewer
 
-Exams-Viewer is a modern web application that provides:
+Exams-Viewer is a cutting-edge ServiceNow certification exam preparation platform that provides:
 
-- **Interactive Exam Viewing**: Browse through certification questions with intuitive navigation
-- **Multiple Providers**: Support for exams from ServiceNow, Microsoft, AWS, and other major certification providers
-- **Mobile-Friendly**: Responsive design for studying on any device
-- **Export Functionality**: Export exam data in various formats
-- **Search & Filter**: Quickly find specific exams or questions
-- **Progress Tracking**: Keep track of your study progress
+- **🚀 Modern Next.js 15 Architecture**: Server-side rendering with React 19 and TypeScript
+- **📱 Mobile-First Responsive Design**: Optimized for all devices with advanced touch gestures
+- **⌨️ Advanced Keyboard Shortcuts**: Complete shortcut system with context-aware bindings
+- **📈 Real-time Progress Tracking**: Interactive analytics with session persistence
+- **🔍 Intelligent Search & Filtering**: Real-time search with smart auto-completion
+- **🎨 Advanced UI Features**: Dark mode, smart status system, and visual feedback
+- **📊 Comprehensive Analytics**: Performance insights with interactive charts and export functionality
 
 ## 🚀 Main Application
 
-The main Exams-Viewer application is hosted and maintained separately. This repository is dedicated to community collaboration and issue management.
+**🌐 Live Demo**: [https://johandev.com/Exams-Viewer/](https://johandev.com/Exams-Viewer/)
+
+**🔗 Source Code**: [https://github.com/JohanDevl/Exams-Viewer](https://github.com/JohanDevl/Exams-Viewer)
+
+> Modern Next.js application with server-side rendering, responsive design, dark mode, and comprehensive study features.
+
+This repository is dedicated to community collaboration and issue management for the Exams-Viewer platform.
 
 ## 🤝 How to Contribute
 
@@ -67,14 +74,17 @@ We provide structured templates for different types of contributions:
 - 🐛 **Issues**: Browse [existing issues](https://github.com/JohanDevl/Exams-Viewer-Project/issues)
 - 📧 **Contact**: Reach out through GitHub issues for project-related questions
 
-## 📊 Supported Certification Providers
+## 📊 Supported Certification Exams
 
-The Exams-Viewer platform currently supports exams from:
+The Exams-Viewer platform primarily focuses on **ServiceNow certification exams**:
 
-- **ServiceNow**: CIS, CSA, CAD certifications
-- **Microsoft**: Azure, Office 365, Windows Server
-- **AWS**: Cloud Practitioner, Solutions Architect, Developer
-- **And many more...**
+- **🏢 ServiceNow CIS Certifications**: Implementation Specialist exams
+- **🎓 ServiceNow CSA**: Certified System Administrator
+- **🔧 ServiceNow CAD**: Certified Application Developer
+- **📈 ServiceNow CTA**: Certified Technical Architect preparation
+- **🔍 Custom Practice Exams**: Community-contributed exam sets
+
+> The platform is specialized for ServiceNow certifications with potential for expansion based on community requests.
 
 ## 🏗️ Project Structure
 
@@ -116,6 +126,6 @@ This repository is licensed under the [MIT License](./LICENSE). See the LICENSE 
 
 **Made with ❤️ by the Exams-Viewer Community**
 
-[🏠 Main Application](#) | [📋 Issues](https://github.com/JohanDevl/Exams-Viewer-Project/issues) | [💬 Discussions](https://github.com/JohanDevl/Exams-Viewer-Project/discussions) | [📖 Wiki](https://github.com/JohanDevl/Exams-Viewer-Project/wiki)
+[🚀 Live Demo](https://johandev.com/Exams-Viewer/) | [💻 Source Code](https://github.com/JohanDevl/Exams-Viewer) | [📋 Issues](https://github.com/JohanDevl/Exams-Viewer-Project/issues) | [💬 Discussions](https://github.com/JohanDevl/Exams-Viewer-Project/discussions)
 
 </div>
