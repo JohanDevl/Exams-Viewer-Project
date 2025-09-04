@@ -26,7 +26,7 @@ This repository serves as the **community hub** for the Exams-Viewer project, fo
 
 Found a bug in the Exams-Viewer platform? Help us fix it!
 
-1. **Use the Bug Report Template**: [Create a bug report](https://github.com/yourusername/Exams-Viewer-Project/issues/new?template=bug_report.md)
+1. **Use the Bug Report Template**: [Create a bug report](https://github.com/JohanDevl/Exams-Viewer-Project/issues/new?template=bug_report.md)
 2. **Provide detailed information**:
    - Clear description of the bug
    - Steps to reproduce
@@ -38,7 +38,7 @@ Found a bug in the Exams-Viewer platform? Help us fix it!
 
 Have an idea for a new feature?
 
-1. **Use the Feature Request Template**: [Submit a feature request](https://github.com/yourusername/Exams-Viewer-Project/issues/new?template=feature_request.md)
+1. **Use the Feature Request Template**: [Submit a feature request](https://github.com/JohanDevl/Exams-Viewer-Project/issues/new?template=feature_request.md)
 2. **Include in your request**:
    - Clear description of the feature
    - Use case and benefits
@@ -49,7 +49,7 @@ Have an idea for a new feature?
 
 Want to see a specific certification exam added?
 
-1. **Use the New Exam Request Template**: [Submit an exam request](https://github.com/yourusername/Exams-Viewer-Project/issues/new?template=new_exam_request.md)
+1. **Use the New Exam Request Template**: [Submit an exam request](https://github.com/JohanDevl/Exams-Viewer-Project/issues/new?template=new_exam_request.md)
 2. **Provide comprehensive information**:
    - Exam code and full name
    - Certification provider
@@ -62,7 +62,7 @@ Want to see a specific certification exam added?
 
 Ideas for improving the user interface?
 
-1. **Use the UI Improvement Template**: [Create a UI improvement request](https://github.com/yourusername/Exams-Viewer-Project/issues/new?template=ui_improvement.md)
+1. **Use the UI Improvement Template**: [Create a UI improvement request](https://github.com/JohanDevl/Exams-Viewer-Project/issues/new?template=ui_improvement.md)
 2. **Include design considerations**:
    - Current vs proposed design
    - User experience improvements

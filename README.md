@@ -2,10 +2,10 @@
 
 <div align="center">
   
-[![GitHub Issues](https://img.shields.io/github/issues/yourusername/Exams-Viewer-Project)](https://github.com/yourusername/Exams-Viewer-Project/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/yourusername/Exams-Viewer-Project)](https://github.com/yourusername/Exams-Viewer-Project/pulls)
-[![GitHub Stars](https://img.shields.io/github/stars/yourusername/Exams-Viewer-Project)](https://github.com/yourusername/Exams-Viewer-Project/stargazers)
-[![License](https://img.shields.io/github/license/yourusername/Exams-Viewer-Project)](./LICENSE)
+[![GitHub Issues](https://img.shields.io/github/issues/JohanDevl/Exams-Viewer-Project)](https://github.com/JohanDevl/Exams-Viewer-Project/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/JohanDevl/Exams-Viewer-Project)](https://github.com/JohanDevl/Exams-Viewer-Project/pulls)
+[![GitHub Stars](https://img.shields.io/github/stars/JohanDevl/Exams-Viewer-Project)](https://github.com/JohanDevl/Exams-Viewer-Project/stargazers)
+[![License](https://img.shields.io/github/license/JohanDevl/Exams-Viewer-Project)](./LICENSE)
 
 </div>
 
@@ -40,16 +40,16 @@ The main Exams-Viewer application is hosted and maintained separately. This repo
 We welcome contributions from the community! Here's how you can help:
 
 ### 🐛 Report a Bug
-Found a bug in the Exams-Viewer platform? [Create a bug report](https://github.com/yourusername/Exams-Viewer-Project/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBUG%5D+) using our detailed template.
+Found a bug in the Exams-Viewer platform? [Create a bug report](https://github.com/JohanDevl/Exams-Viewer-Project/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBUG%5D+) using our detailed template.
 
 ### ✨ Request a Feature
-Have an idea for a new feature? [Submit a feature request](https://github.com/yourusername/Exams-Viewer-Project/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEATURE%5D+) and let us know what you'd like to see.
+Have an idea for a new feature? [Submit a feature request](https://github.com/JohanDevl/Exams-Viewer-Project/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEATURE%5D+) and let us know what you'd like to see.
 
 ### 📚 Request a New Exam
-Want to see a new certification exam added to the platform? [Submit an exam request](https://github.com/yourusername/Exams-Viewer-Project/issues/new?assignees=&labels=enhancement%2Cnew-exam&template=new_exam_request.md&title=%5BNEW+EXAM%5D+) with all the necessary details.
+Want to see a new certification exam added to the platform? [Submit an exam request](https://github.com/JohanDevl/Exams-Viewer-Project/issues/new?assignees=&labels=enhancement%2Cnew-exam&template=new_exam_request.md&title=%5BNEW+EXAM%5D+) with all the necessary details.
 
 ### 🎨 Suggest UI Improvements
-Have ideas for improving the user interface? [Create a UI improvement request](https://github.com/yourusername/Exams-Viewer-Project/issues/new?assignees=&labels=ui%2Fux&template=ui_improvement.md&title=%5BUI%5D+) to help us make the platform better.
+Have ideas for improving the user interface? [Create a UI improvement request](https://github.com/JohanDevl/Exams-Viewer-Project/issues/new?assignees=&labels=ui%2Fux&template=ui_improvement.md&title=%5BUI%5D+) to help us make the platform better.
 
 ## 📋 Issue Templates
 
@@ -63,8 +63,8 @@ We provide structured templates for different types of contributions:
 ## 📞 Support & Community
 
 - 📚 **Documentation**: Check our [templates guide](./.github/TEMPLATES.md)
-- 💬 **Discussions**: Join our [GitHub Discussions](https://github.com/yourusername/Exams-Viewer-Project/discussions)
-- 🐛 **Issues**: Browse [existing issues](https://github.com/yourusername/Exams-Viewer-Project/issues)
+- 💬 **Discussions**: Join our [GitHub Discussions](https://github.com/JohanDevl/Exams-Viewer-Project/discussions)
+- 🐛 **Issues**: Browse [existing issues](https://github.com/JohanDevl/Exams-Viewer-Project/issues)
 - 📧 **Contact**: Reach out through GitHub issues for project-related questions
 
 ## 📊 Supported Certification Providers
@@ -116,6 +116,6 @@ This repository is licensed under the [MIT License](./LICENSE). See the LICENSE 
 
 **Made with ❤️ by the Exams-Viewer Community**
 
-[🏠 Main Application](#) | [📋 Issues](https://github.com/yourusername/Exams-Viewer-Project/issues) | [💬 Discussions](https://github.com/yourusername/Exams-Viewer-Project/discussions) | [📖 Wiki](https://github.com/yourusername/Exams-Viewer-Project/wiki)
+[🏠 Main Application](#) | [📋 Issues](https://github.com/JohanDevl/Exams-Viewer-Project/issues) | [💬 Discussions](https://github.com/JohanDevl/Exams-Viewer-Project/discussions) | [📖 Wiki](https://github.com/JohanDevl/Exams-Viewer-Project/wiki)
 
 </div>
